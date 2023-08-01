@@ -20,8 +20,9 @@ jobs:
         run: |
           cd target-repo
           cp -R app/* .
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add -A
-          git commit -m "Publish GitHub Pages"
-          git push origin main
+      
+      - name: Deploy GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: .
