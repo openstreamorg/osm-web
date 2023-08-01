@@ -1,0 +1,26 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change this to the main branch name if your default branch is different
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Clone the target repository
+        run: git clone https://github.com/openstreamorg/openstreammusic target-repo
+
+      - name: Publish GitHub Pages
+        run: |
+          cp -R app/* .
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add -A
+          git commit -m "Publish GitHub Pages"
+          git push origin main
